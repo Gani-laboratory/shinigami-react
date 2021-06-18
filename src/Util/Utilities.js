@@ -1,17 +1,18 @@
 import axios from "axios";
 import env from "react-dotenv";
 
-const formatOptions = (options = {}) => {
-    return {  weekday: "long", year: "numeric", month: "long", day: "numeric", ...options }
+const formatOptions = (opts = {}) => {
+    return {  weekday: "long", year: "numeric", month: "long", day: "numeric", ...opts }
 }
-const fetchApi = (endPoint, method, options = {}) => {
+const fetchApi = (endPoint, method, opts = {}, headerOpts = {}) => {
     return axios({
         url: `${env.API_URI}${endPoint}`,
         method,
         headers: {
-            "x-apikey": env.API_KEY
+            "x-apikey": env.API_KEY,
+            ...headerOpts
         },
-        ...options
+        ...opts
     })
 }
 const roles = ["", "owner", "admin", "member"]
