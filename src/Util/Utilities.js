@@ -14,5 +14,6 @@ const fetchApi = (endPoint, method, options = {}) => {
         ...options
     })
 }
+const roles = ["", "owner", "admin", "member"]
 
-export { formatOptions, fetchApi }
+export { formatOptions, fetchApi, roles }
