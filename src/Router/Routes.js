@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, BrowserRouter as Router} from "react-router-dom";
 import Home from "../Components/Home";
+import User from "../Components/ListUser";
 import Login from "../Components/Login";
 import Navigation from "../Components/Navigation";
 import Profile from "../Components/Profile";
@@ -22,6 +23,9 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/profile">
                     <Profile/>
+                </Route>
+                <Route exact path="/user">
+                    <User/>
                 </Route>
             </Switch>
         </Router>
