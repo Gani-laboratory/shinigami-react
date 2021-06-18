@@ -1,8 +1,11 @@
+import { GlobalProvider } from "./Global/GlobalState";
 import Routes from "./Router/Routes";
 
 function App() {
   return (
-    <Routes/>
+    <GlobalProvider>
+      <Routes/>
+    </GlobalProvider>
   );
 }
 
