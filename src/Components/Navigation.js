@@ -9,6 +9,7 @@ const Navigation = () => {
             <Link to="/register" className="mx-1">Register</Link>
             <Link to="/profile" className="mx-1">My Profile</Link>
             <Link to="/user" className="mx-1">List user</Link>
+            <Link to="/delete" className="mx-1">Delete user</Link>
             <Link to="/features" className="mx-1">Features</Link>
         </div>
     )

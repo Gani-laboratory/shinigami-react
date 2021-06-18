@@ -1,3 +1,4 @@
+// mungkin untuk auth bisa kayak gini => store session id didalam cookie -> mengambil session berdasarkan session id di cookie ? jika di temukan berikan data yang di simpan di sessionya : jika tidak ditemukan delete cookienya
 import React, { useEffect, useState } from "react";
 import { fetchApi, formatOptions, roles } from "../Util/Utilities"
 
