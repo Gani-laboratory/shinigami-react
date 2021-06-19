@@ -1,6 +1,7 @@
 import React from "react";
 import { Switch, Route, BrowserRouter as Router} from "react-router-dom";
 import Delete from "../Components/DeleteUser";
+import Edit from "../Components/EditUser";
 import Features from "../Components/Features";
 import Home from "../Components/Home";
 import User from "../Components/ListUser";
@@ -34,6 +35,9 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/delete">
                     <Delete/>
+                </Route>
+                <Route exact path="/edit">
+                    <Edit/>
                 </Route>
             </Switch>
         </Router>
