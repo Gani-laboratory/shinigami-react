@@ -11,9 +11,9 @@ const Delete = () => {
     const onSubmit = event => {
         event.preventDefault()
         Swal.fire({
-            text: "Are you sure to logout?",
+            text: "Are you sure you want to delete your account?",
             showDenyButton: true,
-            icon: "question",
+            icon: "warning",
         }).then(result => {
             if (result.isConfirmed) {
                 userCrud("delete", {}, user._id).then(val => {
