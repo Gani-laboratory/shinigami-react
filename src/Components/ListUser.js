@@ -5,9 +5,9 @@ import { userCrud, formatOptions } from "../Util/Utilities"
 const User = () => {
     const [users, setUsers] = useState([])
     useEffect(() => {
-        userCrud("show all").then(val => setUsers(val.data)).catch(() => Swal.fire({
-            title: "sorry, we are having problems",
-            icon: "info"
+        userCrud("show all").then(val => setUsers(val.data)).catch(e => Swal.fire({
+            title: e,
+            icon: "error"
         }))
     }, [])
     return (

@@ -29,8 +29,8 @@ const Login = () => {
         event.preventDefault()
         if (!email || !password) {
             Swal.fire({
-                text: "Semua input wajib diisi",
-                title: "ERROR",
+                text: "All inputs are required",
+                title: "Login failed",
                 icon: "error",
               })
         } else {
@@ -41,19 +41,25 @@ const Login = () => {
                     const payload = { ...res.data, role: undefined, password: undefined, __v: undefined }
                     setGlobalState({ type: "setUser", payload })
                     localStorage.setItem("user", JSON.stringify(payload)) 
+                    Swal.fire({
+                        text: res.data.message,
+                        title: "Berhasil Login",
+                        icon: "success",
+                    })
                     history.push("/profile")
-                })
-                Swal.fire({
-                    text: res.data.message,
-                    title: "Berhasil Login",
-                    icon: "success",
+                }).catch(e => {
+                    Swal.fire({
+                        text: e.response?.data.message || "Sorry, we are having a little problem",
+                        title: "Login failed",
+                        icon: "error"
+                    })
                 })
             }).catch(e => {
                 setEmail("")
                 setPassword("")
                 Swal.fire({
-                    text: e.response.data.message,
-                    title: "ERROR",
+                    text: e.response?.data.message || "Sorry, we are having a little problem",
+                    title: "Login failed",
                     icon: "error"
                 })
             })

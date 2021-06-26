@@ -17,11 +17,11 @@ const fetchApi = (endPoint, method, opts = {}, headerOpts = {}) => {
     })
 }
 
-const userCrud = (action, data={}, id=0) => {
+const userCrud = async (action, data={}, id=0) => {
     try {
         switch (action) {
             case "create":
-                return fetchApi("/user", "POST",
+                return await fetchApi("/user", "POST",
                     {
                         data: JSON.stringify(data)
                     },
@@ -30,9 +30,9 @@ const userCrud = (action, data={}, id=0) => {
                     }
                 )
             case "read":
-                return fetchApi(`/user/${id}`, "GET")
+                return await fetchApi(`/user/${id}`, "GET")
             case "update":
-                return fetchApi(`/user/${id}`, "PUT",
+                return await fetchApi(`/user/${id}`, "PUT",
                     {
                         data: JSON.stringify(data)
                     },
@@ -41,13 +41,13 @@ const userCrud = (action, data={}, id=0) => {
                     }
                 )
             case "delete":
-                return fetchApi(`/user/${id}`, "DELETE")
+                return await fetchApi(`/user/${id}`, "DELETE")
                 
             default:
-                return fetchApi("/user", "GET")
+                return await fetchApi("/user", "GET")
         }
     } catch (e) {
-        throw e.response.data.message
+        throw e.response?.data.message || "Sorry, we are having a little problem"
     }
 }
 
