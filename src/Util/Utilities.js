@@ -17,11 +17,11 @@ const fetchApi = (endPoint, method, opts = {}, headerOpts = {}) => {
     })
 }
 
-const userCrud = async (action, data={}, id=0) => {
+const userCrud = (action, data={}, id=0) => {
     try {
         switch (action) {
             case "create":
-                return await fetchApi("/user", "POST",
+                return fetchApi("/user", "POST",
                     {
                         data: JSON.stringify(data)
                     },
@@ -30,9 +30,9 @@ const userCrud = async (action, data={}, id=0) => {
                     }
                 )
             case "read":
-                return await fetchApi(`/user/${id}`, "GET")
+                return fetchApi(`/user/${id}`, "GET")
             case "update":
-                return await fetchApi(`/user/${id}`, "PUT",
+                return fetchApi(`/user/${id}`, "PUT",
                     {
                         data: JSON.stringify(data)
                     },
@@ -41,10 +41,10 @@ const userCrud = async (action, data={}, id=0) => {
                     }
                 )
             case "delete":
-                return await fetchApi(`/user/${id}`, "DELETE")
+                return fetchApi(`/user/${id}`, "DELETE")
                 
             default:
-                return await fetchApi("/user", "GET")
+                return fetchApi("/user", "GET")
         }
     } catch (e) {
         throw e.response.data.message
