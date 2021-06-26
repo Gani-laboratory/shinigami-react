@@ -1,11 +1,14 @@
-// mungkin untuk auth bisa kayak gini => store session id didalam cookie -> mengambil session berdasarkan session id di cookie ? jika di temukan berikan data yang di simpan di sessionya : jika tidak ditemukan delete cookienya
 import React, { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 import { userCrud, formatOptions } from "../Util/Utilities"
 
 const User = () => {
     const [users, setUsers] = useState([])
     useEffect(() => {
-        userCrud("show all").then(val => setUsers(val.data)).catch(e => setUsers(e.data))
+        userCrud("show all").then(val => setUsers(val.data)).catch(() => Swal.fire({
+            title: "sorry, we are having problems",
+            icon: "info"
+        }))
     }, [])
     return (
         <div className="mt-5">
