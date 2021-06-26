@@ -1,20 +1,17 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import { fetchApi } from "../Util/Utilities";
+import Auth from "../Authentication/Auth";
+import { userCrud } from "../Util/Utilities";
 
 const Register = () => {
-    const [username, setUsername] = useState("")
-    const [email, setEmail] = useState("")
     const [pw, setPw] = useState("")
     const [confirm, setConfirm] = useState("")
-    
+    const [email, setEmail] = Auth("")
+
     const onChange = (event) => {
         event.preventDefault()
         const val = event.target.value
         switch (event.target.id) {
-            case "username":
-                setUsername(val)
-                break;
             case "email":
                 setEmail(val)
                 break;
@@ -30,33 +27,33 @@ const Register = () => {
     }
     const onSubmit = (event) => {
         event.preventDefault()
-        if (!username || !pw || !confirm || !email) {
+        if (!pw || !confirm || !email) {
             Swal.fire({
-                text: "Semua input wajib diisi",
-                title: "Gagal Register",
+                text: "All inputs are required",
+                title: "Account registration failed",
                 icon: "error",
               })
         } else {
             if (pw === confirm) {
-                fetchApi("/users", "POST", {
-                    data: JSON.stringify({ username, password: pw, email })
-                }, { "Content-Type": "application/json" }).then(v => {
-                    Swal.fire({
-                        text: v.data.message,
-                        title: "Berhasil Register",
-                        icon: "success",
+                userCrud("create", { password: pw, email })
+                    .then(() => {
+                        Swal.fire({
+                            text: "Your account has been successfully registered",
+                            title: "Successfully registered",
+                            icon: "success",
+                        })
                     })
-                }).catch(e => {
-                    Swal.fire({
-                        text: e,
-                        title: "Gagal Register",
-                        icon: "error"
+                    .catch(e => {
+                        Swal.fire({
+                            text: e,
+                            title: "Account registration failed",
+                            icon: "error"
+                        })
                     })
-                })
             } else {
                 Swal.fire({
-                    text: "Password tidak sama dengan confirm password",
-                    title: "Gagal Register",
+                    text: "The confirmation password you entered does not match",
+                    title: "Account registration failed",
                     icon: "error",
                 })
             }
@@ -65,10 +62,9 @@ const Register = () => {
     return (
         <div className="mt-5">
             <p>Register Page</p>
-            <input type="text" onChange={onChange} value={username} id="username" placeholder="Please input your username" />
-            <input type="email" onChange={onChange} value={email} id="email" placeholder="Please input your email" />
-            <input type="password" onChange={onChange} value={pw} id="pw" placeholder="Please input your password" />
-            <input type="password" onChange={onChange} value={confirm} id="confirm" placeholder="Please input your confirm password" />
+            <input type="email" onChange={onChange} value={email} id="email" placeholder="Please input your email" className="block"/>
+            <input type="password" onChange={onChange} value={pw} id="pw" placeholder="Please input your password" className="block my-5" />
+            <input type="password" onChange={onChange} value={confirm} id="confirm" placeholder="Please input your confirm password" className="block my-5" />
             <button type="submit" onClick={onSubmit}>Register</button>
         </div>
     )
