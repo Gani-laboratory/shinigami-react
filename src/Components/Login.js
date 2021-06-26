@@ -36,15 +36,15 @@ const Login = () => {
         } else {
             fetchApi("/auth/login", "POST", {
                 data: JSON.stringify({ email, password })
-            }, { "Content-Type": "application/json" }).then(v => {
-                fetchApi(`/user/${v.data.id}`, "GET").then(val => {
-                    const payload = { ...val.data, role: undefined, password: undefined, __v: undefined }
+            }, { "Content-Type": "application/json" }).then(res => {
+                fetchApi(`/user/${res.data.id}`, "GET").then(res => {
+                    const payload = { ...res.data, role: undefined, password: undefined, __v: undefined }
                     setGlobalState({ type: "setUser", payload })
                     localStorage.setItem("user", JSON.stringify(payload)) 
                     history.push("/profile")
                 })
                 Swal.fire({
-                    text: v.data.message,
+                    text: res.data.message,
                     title: "Berhasil Login",
                     icon: "success",
                 })

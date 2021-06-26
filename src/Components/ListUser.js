@@ -11,13 +11,13 @@ const User = () => {
         <div className="mt-5">
             <p>User page</p>
             {
-                users.map(v => {
+                users.map(value => {
                     return (
-                        <ul key={v._id} className="mt-5 mb-5 mx-auto">
-                            <li>id: { v._id }</li>
-                            <li>email: { v.email }</li>
-                            <li>created at: { new Date(v.createdAt).toLocaleDateString("id", formatOptions()) }</li>
-                            <li>updated at: { new Date(v.updatedAt).toLocaleDateString("id", formatOptions()) }</li>
+                        <ul key={value._id} className="mt-5 mb-5 mx-auto">
+                            <li>id: { value._id }</li>
+                            <li>email: { value.email }</li>
+                            <li>created at: { new Date(value.createdAt).toLocaleDateString("id", formatOptions()) }</li>
+                            <li>updated at: { new Date(value.updatedAt).toLocaleDateString("id", formatOptions()) }</li>
                         </ul>
                     )
                 })
