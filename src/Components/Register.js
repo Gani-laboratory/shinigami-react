@@ -1,12 +1,11 @@
 import React, { useState } from "react";
 import Swal from "sweetalert2";
-import Auth from "../Authentication/Auth";
 import { userCrud } from "../Util/Utilities";
 
 const Register = () => {
     const [pw, setPw] = useState("")
     const [confirm, setConfirm] = useState("")
-    const [email, setEmail] = Auth("")
+    const [email, setEmail] = useState("")
 
     const onChange = (event) => {
         event.preventDefault()
