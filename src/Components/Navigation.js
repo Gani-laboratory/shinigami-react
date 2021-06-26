@@ -6,13 +6,13 @@ import { GlobalContext } from "../Global/GlobalState";
 const Navigation = () => {
     const [GlobalState, setGlobalState] = useContext(GlobalContext)
     const logoutHandler = (element) => {
+        element.preventDefault()
         Swal.fire({
             text: "Are you sure to logout?",
             showDenyButton: true,
             icon: "question",
         }).then(result => {
             if (result.isConfirmed) {
-                element.preventDefault()
                 localStorage.removeItem("user")
                 setGlobalState({ type: "setUser", payload: null })
             }

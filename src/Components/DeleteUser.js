@@ -8,8 +8,8 @@ const Delete = () => {
     const user = JSON.parse(localStorage.getItem("user"))
     const [_, setGlobalState] = useContext(GlobalContext)
 
-    const onSubmit = e => {
-        e.preventDefault()
+    const onSubmit = event => {
+        event.preventDefault()
         Swal.fire({
             text: "Are you sure to logout?",
             showDenyButton: true,
