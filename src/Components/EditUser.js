@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Swal from "sweetalert2";
 import { GlobalContext } from "../Global/GlobalState";
-import { fetchApi } from "../Util/Utilities";
+import { userCrud } from "../Util/Utilities";
 
 const Edit = () => {
     const [email, setEmail] = useState("")
@@ -37,9 +37,8 @@ const Edit = () => {
                 icon: "question",
             }).then(result => {
                 if (result.isConfirmed) {
-                    fetchApi(`/user/${GlobalState.user._id}`, "PUT", {
-                        data: JSON.stringify({ password: pw, email })
-                    }, { "Content-Type": "application/json" }).then(res => {
+                    userCrud("update", { password: pw, email }, GlobalState.user._id)
+                    .then(res => {
                         Swal.fire({
                             text: res.data.message,
                             title: "Berhasil Edit",

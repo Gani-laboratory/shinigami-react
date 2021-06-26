@@ -24,7 +24,7 @@ const Routes = () => {
                     { GlobalState.user === null ? <Login/> : <Redirect to="/profile"></Redirect> }
                 </Route>
                 <Route exact path="/register">
-                    <Register/>
+                    { GlobalState.user === null ? <Register/> : <Redirect to="/profile"></Redirect> }
                 </Route>
                 <Route exact path="/profile">
                     { GlobalState.user !== null ? <Profile/> : <Redirect to="/login"></Redirect> }

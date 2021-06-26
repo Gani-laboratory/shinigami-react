@@ -1,12 +1,30 @@
-import React from "react";
+/* eslint-disable no-unused-vars */
+import React, { useContext } from "react";
 import Swal from "sweetalert2";
-import { fetchApi } from "../Util/Utilities"
+import { GlobalContext } from "../Global/GlobalState";
+import { userCrud } from "../Util/Utilities"
 
 const Delete = () => {
     const user = JSON.parse(localStorage.getItem("user"))
+    const [_, setGlobalState] = useContext(GlobalContext)
+
     const onSubmit = e => {
         e.preventDefault()
-        fetchApi(`/user/${user.id}`, "DELETE").then(val => Swal.fire({ title: "Success delete", text: val.data.message, icon: "success" })).catch(e => Swal.fire({ title: "Gagal delete", text: e, icon: "error" }))
+        Swal.fire({
+            text: "Are you sure to logout?",
+            showDenyButton: true,
+            icon: "question",
+        }).then(result => {
+            if (result.isConfirmed) {
+                userCrud("delete", {}, user._id).then(val => {
+                    Swal.fire({ title: "Success delete", text: val.data.message, icon: "success" })
+                    localStorage.removeItem("user")
+                    setGlobalState({ type: "setUser", payload: null })
+                }).catch(e => {
+                    Swal.fire({ title: "Gagal delete", text: e, icon: "error" })
+                })
+            }
+        })
     }
     return (
         // rencana nya akan di jadikan pop up ketik tombol di profile di click
