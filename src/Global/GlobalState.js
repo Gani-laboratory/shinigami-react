@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from "react";
 import Reducer from "./Reducer";
 let user = null
 const parse = () => {
-    user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : null
+    user = localStorage.getItem("user") ? localStorage.getItem("user") : null
 }
 parse()
 const initialState = {

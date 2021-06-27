@@ -4,6 +4,7 @@ import Swal from "sweetalert2";
 import { useHistory } from "react-router";
 import { GlobalContext } from "../Global/GlobalState";
 import { fetchApi } from "../Util/Utilities";
+import jwtDecode from "jwt-decode";
 
 const Login = () => {
     const [email, setEmail] = useState("")
@@ -37,10 +38,11 @@ const Login = () => {
             fetchApi("/auth/login", "POST", {
                 data: JSON.stringify({ email, password })
             }, { "Content-Type": "application/json" }).then(res => {
-                fetchApi(`/user/${res.data.id}`, "GET").then(res => {
-                    const payload = { ...res.data, role: undefined, password: undefined, __v: undefined }
-                    setGlobalState({ type: "setUser", payload })
-                    localStorage.setItem("user", JSON.stringify(payload)) 
+                const token = res.data.token
+                const id = jwtDecode(token)._id
+                fetchApi(`/user/${id}`, "GET").then(res => {
+                    setGlobalState({ type: "setUser", payload: res.data })
+                    localStorage.setItem("user", token) 
                     Swal.fire({
                         text: res.data.message,
                         title: "Berhasil Login",

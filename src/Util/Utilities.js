@@ -1,5 +1,8 @@
 import axios from "axios";
+// import jwtDecode from "jwt-decode";
+// import { useContext, useEffect } from "react";
 import env from "react-dotenv";
+// import { GlobalContext } from "../Global/GlobalState";
 
 const formatOptions = (opts = {}) => {
     return {  weekday: "long", year: "numeric", month: "long", day: "numeric", ...opts }
@@ -51,4 +54,19 @@ const userCrud = async (action, data={}, id=0) => {
     }
 }
 
+// const useAuth = (token) => {
+//     try {
+//         const id = jwtDecode(token)._id
+//         const [GlobalState, setGlobalState] = useContext(GlobalContext)
+//         useEffect(() => {
+//             userCrud("read", {}, id).then(res => setGlobalState({ type: "setUser", payload: res.data }))
+//         }, [GlobalState.user, setGlobalState])
+
+//         return GlobalState;
+//     } catch (e) {
+//         console.log(e);
+//     }
+// }
+
+// export { formatOptions, fetchApi, userCrud, useAuth }
 export { formatOptions, fetchApi, userCrud }

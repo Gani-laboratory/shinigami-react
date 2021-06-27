@@ -44,9 +44,7 @@ const Edit = () => {
                             title: "Berhasil Edit",
                             icon: "success",
                         })
-                        const payload = { ...res.data, role: undefined, password: undefined, __v: undefined }
-                        setGlobalState({ type: "setUser", payload })
-                        localStorage.setItem("user", JSON.stringify(payload))
+                        setGlobalState({ type: "setUser", payload: res.data })
                     }).catch(e => {
                         Swal.fire({
                             text: e,

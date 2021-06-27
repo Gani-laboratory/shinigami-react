@@ -1,11 +1,12 @@
 /* eslint-disable no-unused-vars */
+import jwtDecode from "jwt-decode";
 import React, { useContext } from "react";
 import Swal from "sweetalert2";
 import { GlobalContext } from "../Global/GlobalState";
 import { userCrud } from "../Util/Utilities"
 
 const Delete = () => {
-    const user = JSON.parse(localStorage.getItem("user"))
+    const id = jwtDecode(localStorage.getItem("user"))._id
     const [_, setGlobalState] = useContext(GlobalContext)
 
     const onSubmit = event => {
@@ -16,7 +17,7 @@ const Delete = () => {
             icon: "warning",
         }).then(result => {
             if (result.isConfirmed) {
-                userCrud("delete", {}, user._id).then(val => {
+                userCrud("delete", {}, id).then(val => {
                     Swal.fire({ title: "Success delete", text: val.data.message, icon: "success" })
                     localStorage.removeItem("user")
                     setGlobalState({ type: "setUser", payload: null })
