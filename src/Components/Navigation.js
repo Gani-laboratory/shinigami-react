@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import env from "react-dotenv";
+import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import { GlobalContext } from "../Global/GlobalState";
 
@@ -18,20 +19,28 @@ const Navigation = () => {
         })
     }
     return (
-        <div>
-            <Link to="/" className="mx-1">Home</Link>
-            <Link to="/login" className="mx-1">Login</Link>
-            <Link to="/register" className="mx-1">Register</Link>
+        <div className="flex justify-between p-5 box-border bg-red-400">
+            <div>
+                <h1 className="font-bold text-gray-900 lg:text-xl md:text-lg text-sm">{ env.APP_NAME }</h1>
+            </div>
+            <div className="flex justify-around text-gray-700 lg:text-lg md:text-sm text-xs">
+                <NavLink to="/" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Home</NavLink>
+                <NavLink to="/login" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Login</NavLink>
+                <NavLink to="/register" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Register</NavLink>
 
-            {(GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) && (
-                <>
-                    <Link to="/profile" className="mx-1">My Profile</Link>
-                    <Link to="/user" className="mx-1">List user</Link>
-                    <Link to="/delete" className="mx-1">Delete user</Link>
-                    <Link to="/features" className="mx-1">Features</Link>
-                    <Link to="/edit" className="mx-1">Edit</Link><button onClick={logoutHandler}>Logout</button>
-                </>
-            )}
+                {(GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) && (
+                    <>
+                        <NavLink to="/profile" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">My Profile</NavLink>
+                        <NavLink to="/user" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">List user</NavLink>
+                        <NavLink to="/delete" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Delete user</NavLink>
+                        <NavLink to="/features" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Features</NavLink>
+                        <NavLink to="/edit" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Edit</NavLink>
+                        <button className="lg:px-2.5 px-1 hover:text-gray-800" onClick={logoutHandler}>
+                            Logout
+                        </button>
+                    </>
+                )}
+            </div>
         </div>
     )
 }

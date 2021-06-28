@@ -69,11 +69,15 @@ const Login = () => {
     }
     
     return (
-        <div className="mt-5">
-            <p>Login Page</p>
-            <input onChange={onChange} value={email} id="email" placeholder="Please input your email" />
-            <input type="password" onChange={onChange} value={password} id="password" placeholder="Please input your password" />
-            <button type="submit" onClick={onSubmit}>Login</button>
+        <div class="flex absolute w-full h-full bg-gray-900">
+            <div class="flex bg-gray-700 lg:w-1/2 md:w-2/3 w-10/12 m-auto justify-center rounded">
+                <div className="flex lg:w-2/3 md:w-10/12 w-11/12 flex-col py-5">
+                    <h1 className="font-bold text-center text-lg mb-5 text-gray-50">Login Page</h1>
+                    <input className="focus:ring-indigo-500 focus:border-indigo-500 block w-full lg:pl-7 md:pl-5 pl-3 lg:pr-12 md:pr-9 pr-6 sm:text-sm border-gray-300 rounded-md" type="email" onChange={onChange} value={email} id="email" placeholder="Please input your email" />
+                    <input className="focus:ring-indigo-500 focus:border-indigo-500 block w-full lg:pl-7 md:pl-5 pl-3 lg:pr-12 md:pr-9 pr-6 sm:text-sm border-gray-300 rounded-md mr-0.5 mt-1" type="password" onChange={onChange} value={password} id="password" placeholder="Please input your password" />
+                    <button className="self-center w-2/6 mt-5 text-gray-50 bg-indigo-600 rounded p-2 border border-indigo-800 focus:outline-none" onClick={onSubmit}>Login</button>
+                </div>
+            </div>
         </div>
     )
 }

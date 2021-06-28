@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import Swal from "sweetalert2";
 import { GlobalContext } from "../Global/GlobalState";
@@ -9,6 +9,10 @@ const Edit = () => {
     const [pw, setPw] = useState("")
     const [GlobalState, setGlobalState] = useContext(GlobalContext)
     const history = useHistory()
+
+    useEffect(() => {
+        setEmail(GlobalState.user.email)
+    }, [GlobalState.user.email])
 
     const onChange = (event) => {
         event.preventDefault()
@@ -28,8 +32,8 @@ const Edit = () => {
         event.preventDefault()
         if (!pw && !email) {
             Swal.fire({
-                text: "Harap isi input yang ingin di edit",
-                title: "Gagal Edit",
+                text: "Please fill in one of the inputs you want to change",
+                title: "Failed to edit account",
                 icon: "error",
             })
         } else {
@@ -39,11 +43,11 @@ const Edit = () => {
                 icon: "question",
             }).then(result => {
                 if (result.isConfirmed) {
-                    userCrud("update", { password: pw, email }, GlobalState.user._id)
+                    userCrud("update", { password: pw || GlobalState.user.password, email: email || GlobalState.user.email }, GlobalState.user._id)
                     .then(res => {
                         Swal.fire({
                             text: res.data.message,
-                            title: "Berhasil Edit",
+                            title: "Successfully edited account",
                             icon: "success",
                         })
                         setGlobalState({ type: "update", payload: { user: res.data } })
