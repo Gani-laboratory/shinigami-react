@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import Swal from "sweetalert2";
 import { userCrud } from "../Util/Utilities";
 
@@ -6,6 +7,7 @@ const Register = () => {
     const [pw, setPw] = useState("")
     const [confirm, setConfirm] = useState("")
     const [email, setEmail] = useState("")
+    const history = useHistory()
 
     const onChange = (event) => {
         event.preventDefault()
@@ -41,6 +43,7 @@ const Register = () => {
                             title: "Successfully registered",
                             icon: "success",
                         })
+                        history.push("/login")
                     })
                     .catch(e => {
                         Swal.fire({
