@@ -1,8 +1,6 @@
+/* eslint-disable no-throw-literal */
 import axios from "axios";
-// import jwtDecode from "jwt-decode";
-// import { useContext, useEffect } from "react";
 import env from "react-dotenv";
-// import { GlobalContext } from "../Global/GlobalState";
 
 const formatOptions = (opts = {}) => {
     return {  weekday: "long", year: "numeric", month: "long", day: "numeric", ...opts }
@@ -13,7 +11,7 @@ const fetchApi = (endPoint, method, opts = {}, headerOpts = {}) => {
         url: `${env.API_URI}${endPoint}`,
         method,
         headers: {
-            "Authorization": `Bearer ${env.ADMIN_ACCESS_TOKEN}`,
+            "Authorization": `Bearer ${localStorage.getItem("token")}`,
             ...headerOpts
         },
         ...opts
@@ -50,23 +48,11 @@ const userCrud = async (action, data={}, id=0) => {
                 return await fetchApi("/user", "GET")
         }
     } catch (e) {
-        throw e.response?.data.message || "Sorry, we are having a little problem"
+        throw {
+            msg: e.response?.data.message || "Sorry, we are having a little problem",
+            status: e.response.status
+        }
     }
 }
 
-// const useAuth = (token) => {
-//     try {
-//         const id = jwtDecode(token)._id
-//         const [GlobalState, setGlobalState] = useContext(GlobalContext)
-//         useEffect(() => {
-//             userCrud("read", {}, id).then(res => setGlobalState({ type: "setUser", payload: res.data }))
-//         }, [GlobalState.user, setGlobalState])
-
-//         return GlobalState;
-//     } catch (e) {
-//         console.log(e);
-//     }
-// }
-
-// export { formatOptions, fetchApi, userCrud, useAuth }
 export { formatOptions, fetchApi, userCrud }

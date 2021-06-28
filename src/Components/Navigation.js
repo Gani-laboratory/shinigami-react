@@ -13,8 +13,7 @@ const Navigation = () => {
             icon: "question",
         }).then(result => {
             if (result.isConfirmed) {
-                localStorage.removeItem("user")
-                setGlobalState({ type: "setUser", payload: null })
+                setGlobalState({ type: "logout", payload: null })
             }
         })
     }
@@ -24,7 +23,7 @@ const Navigation = () => {
             <Link to="/login" className="mx-1">Login</Link>
             <Link to="/register" className="mx-1">Register</Link>
 
-            {GlobalState.user && (
+            {(GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) && (
                 <>
                     <Link to="/profile" className="mx-1">My Profile</Link>
                     <Link to="/user" className="mx-1">List user</Link>

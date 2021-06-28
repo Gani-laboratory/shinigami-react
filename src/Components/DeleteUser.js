@@ -6,8 +6,13 @@ import { GlobalContext } from "../Global/GlobalState";
 import { userCrud } from "../Util/Utilities"
 
 const Delete = () => {
-    const id = jwtDecode(localStorage.getItem("user"))._id
+    let id = false
     const [_, setGlobalState] = useContext(GlobalContext)
+    try {
+        id = jwtDecode(localStorage.getItem("token"))._id
+    } catch {
+        setGlobalState({ type: "logout", payload: null })
+    }
 
     const onSubmit = event => {
         event.preventDefault()
@@ -19,10 +24,9 @@ const Delete = () => {
             if (result.isConfirmed) {
                 userCrud("delete", {}, id).then(val => {
                     Swal.fire({ title: "Success delete", text: val.data.message, icon: "success" })
-                    localStorage.removeItem("user")
-                    setGlobalState({ type: "setUser", payload: null })
+                    setGlobalState({ type: "logout", payload: null })
                 }).catch(e => {
-                    Swal.fire({ title: "Gagal delete", text: e, icon: "error" })
+                    Swal.fire({ title: "Failed to delete account", text: e.msg, icon: "error" })
                 })
             }
         })

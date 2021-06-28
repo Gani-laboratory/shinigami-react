@@ -44,7 +44,7 @@ const Register = () => {
                     })
                     .catch(e => {
                         Swal.fire({
-                            text: e,
+                            text: e.msg,
                             title: "Account registration failed",
                             icon: "error"
                         })

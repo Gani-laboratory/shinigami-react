@@ -1,15 +1,25 @@
-import React, { useEffect, useState } from "react";
+/* eslint-disable no-unused-vars */
+import React, { useContext, useEffect, useState } from "react";
+import { useHistory } from "react-router";
 import Swal from "sweetalert2";
+import { GlobalContext } from "../Global/GlobalState";
 import { userCrud, formatOptions } from "../Util/Utilities"
 
 const User = () => {
     const [users, setUsers] = useState([])
+    const [_, setGlobalState] = useContext(GlobalContext)
+    const history = useHistory()
     useEffect(() => {
-        userCrud("show all").then(val => setUsers(val.data)).catch(e => Swal.fire({
-            title: e,
-            icon: "error"
-        }))
-    }, [])
+        userCrud("show all").then(val => setUsers(val.data)).catch(e => {
+            Swal.fire({
+                title: e.msg,
+                icon: "error"
+            })
+            if (e.status === 401) {
+                setGlobalState({ type: "logout", payload: null })
+            } else if (e.status === 403) history.goBack()
+        })
+    }, [history, setGlobalState])
     return (
         <div className="mt-5">
             <p>User page</p>

@@ -21,25 +21,25 @@ const Routes = () => {
                     <Home/>
                 </Route>
                 <Route exact path="/login">
-                    { GlobalState.user === null ? <Login/> : <Redirect to="/profile"></Redirect> }
+                    { (!GlobalState.user || !GlobalState.token || !GlobalState.isLoggedIn) ? <Login/> : <Redirect to="/profile"></Redirect> }
                 </Route>
                 <Route exact path="/register">
-                    { GlobalState.user === null ? <Register/> : <Redirect to="/profile"></Redirect> }
+                    { (!GlobalState.user || !GlobalState.token || !GlobalState.isLoggedIn) ? <Register/> : <Redirect to="/profile"></Redirect> }
                 </Route>
                 <Route exact path="/profile">
-                    { GlobalState.user !== null ? <Profile/> : <Redirect to="/login"></Redirect> }
+                    { (GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) ? <Profile/> : <Redirect to="/login"></Redirect> }
                 </Route>
                 <Route exact path="/user">
-                   { GlobalState.user !== null ? <User/> : <Redirect to="/login"></Redirect> }
+                   { (GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) ? <User/> : <Redirect to="/login"></Redirect> }
                 </Route>
                 <Route exact path="/features">
                     <Features/>
                 </Route>
                 <Route exact path="/delete">
-                   { GlobalState.user !== null ? <Delete/> : <Redirect to="/login"></Redirect> }
+                   { (GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) ? <Delete/> : <Redirect to="/login"></Redirect> }
                 </Route>
                 <Route exact path="/edit">
-                   { GlobalState.user !== null ? <Edit/> : <Redirect to="/login"></Redirect> }
+                   { (GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) ? <Edit/> : <Redirect to="/login"></Redirect> }
                 </Route>
             </Switch>
         </Router>

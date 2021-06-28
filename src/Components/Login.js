@@ -40,9 +40,9 @@ const Login = () => {
             }, { "Content-Type": "application/json" }).then(res => {
                 const token = res.data.token
                 const id = jwtDecode(token)._id
+                setGlobalState({ type: "preLogin", payload: { token } })
                 fetchApi(`/user/${id}`, "GET").then(res => {
-                    setGlobalState({ type: "setUser", payload: res.data })
-                    localStorage.setItem("user", token) 
+                    setGlobalState({ type: "login", payload: { user: res.data, isLoggedIn: true, token } })
                     Swal.fire({
                         text: res.data.message,
                         title: "Berhasil Login",
