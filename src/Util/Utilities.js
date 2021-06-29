@@ -50,7 +50,7 @@ const userCrud = async (action, data={}, id=0) => {
     } catch (e) {
         throw {
             msg: e.response?.data.message || "Sorry, we are having a little problem",
-            status: e.response.status
+            status: e.response?.status || 500
         }
     }
 }
