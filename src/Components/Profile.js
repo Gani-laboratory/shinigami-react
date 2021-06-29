@@ -33,16 +33,16 @@ const Profile = () => {
         })
     }
     return (
-        <div className="mt-5">
-            <ul className="mt-5 mb-5 mx-auto">
+        <div>
+            <ul>
                 <li>id: { GlobalState.user._id }</li>
                 <li>email: { GlobalState.user.email }</li>
                 <li>created at: { new Date(GlobalState.user.createdAt).toLocaleDateString("id", formatOptions()) }</li>
                 <li>updated at: { new Date(GlobalState.user.updatedAt).toLocaleDateString("id", formatOptions()) }</li>
             </ul>
             <button className="block focus:outline-none" onClick={deleteAccount}>delete account</button>
-            <Link className="block" to="/edit">Edit account</Link>
-            <Link className="block" to="/user">List user</Link>
+            <Link to="/edit">Edit account</Link>
+            <Link to="/user">List user</Link>
         </div>
     )
 }

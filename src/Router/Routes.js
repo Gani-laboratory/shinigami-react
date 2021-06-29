@@ -1,6 +1,5 @@
 import React, { useContext } from "react";
 import { Switch, Route, BrowserRouter as Router, Redirect} from "react-router-dom";
-import Delete from "../Components/DeleteUser";
 import Edit from "../Components/EditUser";
 import Features from "../Components/Features";
 import Home from "../Components/Home";
@@ -34,9 +33,6 @@ const Routes = () => {
                 </Route>
                 <Route exact path="/features">
                     <Features/>
-                </Route>
-                <Route exact path="/delete">
-                   { (GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) ? <Delete/> : <Redirect to="/login"></Redirect> }
                 </Route>
                 <Route exact path="/edit">
                    { (GlobalState.user && GlobalState.token && GlobalState.isLoggedIn) ? <Edit/> : <Redirect to="/login"></Redirect> }
