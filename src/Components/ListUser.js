@@ -8,9 +8,15 @@ import { userCrud, formatOptions } from "../Util/Utilities"
 const User = () => {
     const [users, setUsers] = useState([])
     const [_, setGlobalState] = useContext(GlobalContext)
+    const [isLoading, setIsLoading] = useState(true)
     const history = useHistory()
     useEffect(() => {
-        userCrud("show all").then(val => setUsers(val.data)).catch(e => {
+        userCrud("show all")
+        .then(val => {
+            setUsers(val.data)
+            setIsLoading(false)
+        })
+        .catch(e => {
             Swal.fire({
                 title: e.msg,
                 icon: "error"
@@ -23,7 +29,9 @@ const User = () => {
     return (
         <div className="mt-5">
             <p>User page</p>
-            {
+            { isLoading ? (
+                <p>Sedang loading</p>
+            ) :
                 users.map(value => {
                     return (
                         <ul key={value._id} className="mt-5 mb-5 mx-auto">
