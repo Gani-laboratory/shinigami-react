@@ -42,7 +42,7 @@ const Login = () => {
                 const id = jwtDecode(token)._id
                 setGlobalState({ type: "preLogin", payload: { token } })
                 fetchApi(`/user/${id}`, "GET").then(res => {
-                    setGlobalState({ type: "login", payload: { user: res.data, isLoggedIn: true, token } })
+                    setGlobalState({ type: "login", payload: { user: { ...res.data, password }, isLoggedIn: true, token } })
                     Swal.fire({
                         text: res.data.message,
                         title: "Berhasil Login",
@@ -69,8 +69,8 @@ const Login = () => {
     }
     
     return (
-        <div class="flex absolute w-full h-full bg-gray-900">
-            <div class="flex bg-gray-700 lg:w-1/2 md:w-2/3 w-10/12 m-auto justify-center rounded">
+        <div className="flex absolute w-full h-full bg-gray-900">
+            <div className="flex bg-gray-700 lg:w-1/2 md:w-2/3 w-10/12 m-auto justify-center rounded">
                 <div className="flex lg:w-2/3 md:w-10/12 w-11/12 flex-col py-5">
                     <h1 className="font-bold text-center text-lg mb-5 text-gray-50">Login Page</h1>
                     <input className="focus:ring-indigo-500 focus:border-indigo-500 block w-full lg:pl-7 md:pl-5 pl-3 lg:pr-12 md:pr-9 pr-6 sm:text-sm border-gray-300 rounded-md" type="email" onChange={onChange} value={email} id="email" placeholder="Please input your email" />

@@ -35,6 +35,7 @@ const User = () => {
                     )
                 })
             }
+            <button onClick={history.goBack}>Go back</button>
         </div>
     )
 }

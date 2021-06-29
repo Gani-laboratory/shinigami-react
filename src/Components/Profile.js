@@ -33,16 +33,39 @@ const Profile = () => {
         })
     }
     return (
-        <div>
-            <ul>
-                <li>id: { GlobalState.user._id }</li>
-                <li>email: { GlobalState.user.email }</li>
-                <li>created at: { new Date(GlobalState.user.createdAt).toLocaleDateString("id", formatOptions()) }</li>
-                <li>updated at: { new Date(GlobalState.user.updatedAt).toLocaleDateString("id", formatOptions()) }</li>
-            </ul>
-            <button className="block focus:outline-none" onClick={deleteAccount}>delete account</button>
-            <Link to="/edit">Edit account</Link>
-            <Link to="/user">List user</Link>
+        <div className="flex absolute w-full h-full bg-gray-900 text-gray-50">
+            <div className="flex flex-col m-auto justify-between p-5 rounded-md bg-gray-700 w-1/2 h-1/2">
+                <div className="self-center font-bold text-xl">
+                    <h1>User Profile Page</h1>
+                </div>
+                <div className="self-center bg-gray-600 p-5">
+                    <p className="text-lg font-medium">{ GlobalState.user.email }</p>
+                    <p className="text-xs font-thin text-gray-300">{ GlobalState.user._id }</p>
+                </div>
+                <div className="flex justify-around bg-gray-600 py-5 w-1/2 self-center">
+                    <div>
+                        <p className="text-sm font-medium">Created at</p>
+                        <p className="text-xs font-thin">{ new Date(GlobalState.user.createdAt).toLocaleDateString("id", formatOptions()) }</p>
+                    </div>
+                    <div>
+                        <p className="text-sm font-medium text-right">Updated at</p>
+                        <p className="text-xs font-thin">{ new Date(GlobalState.user.updatedAt).toLocaleDateString("id", formatOptions()) }</p>
+                    </div>
+                </div>
+                <div className="flex justify-around bg-gray-600 py-5">
+                    <Link className="bg-indigo-600 rounded p-2 border border-indigo-800" to="/edit">
+                        Edit account
+                    </Link>
+                    { GlobalState.user.role === "ADMIN" && (
+                    <Link className="bg-indigo-600 rounded p-2 border border-indigo-800" to="/user">
+                        List user
+                    </Link>
+                    ) }
+                    <button className="bg-indigo-600 rounded p-2 border border-indigo-800 focus:outline-none" onClick={deleteAccount}>
+                        Delete account
+                    </button>
+                </div>
+            </div>
         </div>
     )
 }
