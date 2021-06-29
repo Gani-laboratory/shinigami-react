@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
 import React, { useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router";
@@ -10,6 +11,22 @@ const User = () => {
     const [_, setGlobalState] = useContext(GlobalContext)
     const [isLoading, setIsLoading] = useState(true)
     const history = useHistory()
+    const deleteAccount = props => {
+        Swal.fire({
+            text: "Are you sure you want to delete your account?",
+            showDenyButton: true,
+            icon: "warning",
+        }).then(result => {
+            if (result.isConfirmed) {
+                userCrud("delete", {}, props).then(val => {
+                    Swal.fire({ title: "Success delete", text: val.data.message, icon: "success" })
+                }).catch(e => {
+                    Swal.fire({ title: "Failed to delete account", text: e.msg, icon: "error" })
+                })
+            }
+        })
+    }
+    
     useEffect(() => {
         userCrud("show all")
         .then(val => {
@@ -25,7 +42,8 @@ const User = () => {
                 setGlobalState({ type: "logout", payload: null })
             } else if (e.status === 403) history.goBack()
         })
-    }, [history, setGlobalState])
+    }, [deleteAccount])
+
     return (
         <div className="absolute bg-gray-900 text-gray-50 w-full h-full">
             <div className="flex justify-center flex-wrap mx-auto p-5 w-11/12 h-5/6 mt-10 bg-gray-700 overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-thumb-rounded-full hover:scrollbar-thumb-indigo-700">
@@ -53,7 +71,7 @@ const User = () => {
                                     <button className="bg-indigo-600 rounded p-1 text-center border border-indigo-700 focus:outline-none">
                                         Edit
                                     </button>
-                                    <button className="bg-indigo-600 rounded p-1 text-center border border-indigo-700 focus:outline-none">
+                                    <button className="bg-indigo-600 rounded p-1 text-center border border-indigo-700 focus:outline-none" onClick={() => deleteAccount(value._id)}>
                                         Delete
                                     </button>
                                 </div>
