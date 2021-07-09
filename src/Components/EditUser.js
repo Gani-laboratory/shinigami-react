@@ -8,8 +8,8 @@ const Edit = () => {
     const location = useLocation()
     console.log(location.state);
     const [GlobalState, setGlobalState] = useContext(GlobalContext)
-    const [email, setEmail] = useState(GlobalState.user.email)
-    const [pw, setPw] = useState(GlobalState.user.password)
+    const [email, setEmail] = useState(location.state?.user.email || GlobalState.user.email)
+    const [pw, setPw] = useState(location.state?.user ? "" : GlobalState.user.password)
     const history = useHistory()
 
     const onChange = (event) => {
@@ -41,7 +41,7 @@ const Edit = () => {
                 icon: "question",
             }).then(result => {
                 if (result.isConfirmed) {
-                    userCrud("update", { password: pw || GlobalState.user.password, email: email || GlobalState.user.email }, GlobalState.user._id)
+                    userCrud("update", { password: pw, email: email }, GlobalState.user._id)
                     .then(res => {
                         Swal.fire({
                             text: res.data.message,
