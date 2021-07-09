@@ -1,10 +1,12 @@
 import React, { useContext, useState } from "react";
-import { useHistory } from "react-router";
+import { useHistory, useLocation } from "react-router";
 import Swal from "sweetalert2";
 import { GlobalContext } from "../Global/GlobalState";
 import { userCrud } from "../Util/Utilities";
 
 const Edit = () => {
+    const location = useLocation()
+    console.log(location.state);
     const [GlobalState, setGlobalState] = useContext(GlobalContext)
     const [email, setEmail] = useState(GlobalState.user.email)
     const [pw, setPw] = useState(GlobalState.user.password)

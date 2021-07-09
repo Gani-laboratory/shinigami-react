@@ -24,7 +24,7 @@ const Navigation = () => {
                 <h1 className="font-bold text-gray-900 lg:text-xl md:text-lg text-sm">{ env.APP_NAME }</h1>
             </div>
             <div className="flex items-center justify-around text-gray-700 lg:text-lg md:text-sm text-xs">
-                <NavLink to="/" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Home</NavLink>
+                <NavLink to="/" exact={true} className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">Home</NavLink>
                 {(!GlobalState.user || !GlobalState.token || !GlobalState.isLoggedIn) && (
                     <>
                         <NavLink to="/login" className="lg:px-2.5 px-1 hover:text-gray-800" activeClassName="font-bold">

@@ -52,7 +52,7 @@ const User = () => {
                 ) :
                     users.map(value => {
                         return (
-                            <div className="flex flex-col bg-gray-600 md:p-5 p-3 lg:w-1/3 md:w-1/2 w-2/3 m-2 h-51" key={value._id}>
+                            <div className="flex flex-col bg-gray-600 md:p-5 p-3 lg:w-1/3 md:w-1/2 w-11/12 m-2 h-auto" key={value._id}>
                                 <div className="mb-5">
                                     <p className="md:text-base text-sm">{ value.email }</p>
                                     <p className="md:text-sm text-xs font-thin text-gray-300">{ value._id }</p>
@@ -68,7 +68,12 @@ const User = () => {
                                     </div>
                                 </div>
                                 <div className="flex justify-between mt-5">
-                                    <button className="bg-indigo-600 rounded p-1 text-center border border-indigo-700 focus:outline-none">
+                                    <button className="bg-indigo-600 rounded p-1 text-center border border-indigo-700 focus:outline-none"
+                                            onClick={() => history.push({
+                                                pathname: "/edit",
+                                                state: { id: value._id }
+                                            })}
+                                    >
                                         Edit
                                     </button>
                                     <button className="bg-indigo-600 rounded p-1 text-center border border-indigo-700 focus:outline-none" onClick={() => deleteAccount(value._id)}>
