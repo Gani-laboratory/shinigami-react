@@ -46,13 +46,13 @@ const User = () => {
 
     return (
         <div className="absolute bg-gray-900 text-gray-50 w-full h-full">
-            <div className="flex justify-center flex-wrap mx-auto p-5 w-11/12 h-5/6 mt-10 bg-gray-700 overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-thumb-rounded-full hover:scrollbar-thumb-indigo-700">
+            <div className="flex items-start justify-center flex-wrap mx-auto p-5 w-11/12 h-5/6 mt-10 bg-gray-700 overflow-y-auto scrollbar-thin scrollbar-thumb-indigo-600 scrollbar-thumb-rounded-full hover:scrollbar-thumb-indigo-700">
                 { isLoading ? (
                     <p className="my-auto animate-pulse text-xl font-bold">Loading...</p>
                 ) :
                     users.map(value => {
                         return (
-                            <div className="flex flex-col bg-gray-600 md:p-5 p-3 lg:w-1/3 md:w-1/2 w-11/12 m-2 h-full" key={value._id}>
+                            <div className="flex flex-col bg-gray-600 md:p-5 p-3 lg:w-1/3 md:w-1/2 w-11/12 m-2" key={value._id}>
                                 <div className="mb-5">
                                     <p className="md:text-base text-sm">{ value.email }</p>
                                     <p className="md:text-sm text-xs font-thin text-gray-300">{ value._id }</p>
